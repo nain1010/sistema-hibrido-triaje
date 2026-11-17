@@ -1,0 +1,83 @@
+{
+  "sistema": "Triaje_Clinico_Hibrido_v1",
+  "reglas": [
+    {
+      "id": "R01",
+      "descripcion": "Fiebre alta con tos seca sugiere infeccion respiratoria aguda",
+      "condiciones": [
+        {"variable": "fiebre", "operador": ">", "valor": 38.5},
+        {"variable": "tos_seca", "operador": "==", "valor": 1}
+      ],
+      "conclusion": "sospecha_infeccion_respiratoria",
+      "confianza": 0.92
+    },
+    {
+      "id": "R02",
+      "descripcion": "Hiperglucemia en adulto mayor requiere valoracion prioritaria",
+      "condiciones": [
+        {"variable": "glucosa", "operador": ">", "valor": 180},
+        {"variable": "edad", "operador": ">=", "valor": 60}
+      ],
+      "conclusion": "riesgo_metabolico_alto",
+      "confianza": 0.88
+    },
+    {
+      "id": "R03",
+      "descripcion": "Presion sistolica elevada critica",
+      "condiciones": [
+        {"variable": "presion_sistolica", "operador": ">", "valor": 140}
+      ],
+      "conclusion": "riesgo_hipertension",
+      "confianza": 0.85
+    },
+    {
+      "id": "R04",
+      "descripcion": "IMC elevado con presion alta",
+      "condiciones": [
+        {"variable": "bmi", "operador": ">", "valor": 30.0},
+        {"variable": "presion_sistolica", "operador": ">", "valor": 130}
+      ],
+      "conclusion": "riesgo_cardiovascular",
+      "confianza": 0.80
+    },
+    {
+      "id": "R05",
+      "descripcion": "Fiebre moderada en pacientes jovenes",
+      "condiciones": [
+        {"variable": "fiebre", "operador": ">", "valor": 37.5},
+        {"variable": "edad", "operador": "<", "valor": 40}
+      ],
+      "conclusion": "infeccion_leve",
+      "confianza": 0.70
+    },
+    {
+      "id": "R06",
+      "descripcion": "Glucosa limítrofe en adultos",
+      "condiciones": [
+        {"variable": "glucosa", "operador": ">=", "valor": 140},
+        {"variable": "glucosa", "operador": "<=", "valor": 179}
+      ],
+      "conclusion": "precaucion_glucosa",
+      "confianza": 0.75
+    },
+    {
+      "id": "R07",
+      "descripcion": "Presion diastolica elevada",
+      "condiciones": [
+        {"variable": "presion_diastolica", "operador": ">", "valor": 90}
+      ],
+      "conclusion": "alerta_diastolica",
+      "confianza": 0.82
+    },
+    {
+      "id": "R08",
+      "descripcion": "Cuadro febril sin tos",
+      "condiciones": [
+        {"variable": "fiebre", "operador": ">", "valor": 38.0},
+        {"variable": "tos_seca", "operador": "==", "valor": 0}
+      ],
+      "conclusion": "fiebre_origen_desconocido",
+      "confianza": 0.65
+    }
+  ]
+}
