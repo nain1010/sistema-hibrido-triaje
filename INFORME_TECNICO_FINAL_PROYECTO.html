@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Informe Técnico Final - Sistema Multimodal de Triaje Clínico</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #1f2937;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 30px;
+  }
+  h1 { color: #1e3a8a; border-bottom: 2px solid #2563eb; padding-bottom: 0.3em; margin-top: 1.5em; font-size: 26px; }
+  h2 { color: #1e40af; border-bottom: 1px solid #cbd5e1; padding-bottom: 0.2em; margin-top: 1.3em; font-size: 20px; }
+  h3 { color: #334155; margin-top: 1.1em; font-size: 16px; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+    font-size: 12px;
+  }
+  table, th, td {
+    border: 1px solid #cbd5e1;
+  }
+  th, td {
+    padding: 8px 10px;
+    text-align: left;
+  }
+  th {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-weight: 700;
+  }
+  tr:nth-child(even) { background-color: #f8fafc; }
+  blockquote {
+    border-left: 4px solid #3b82f6;
+    padding: 10px 15px;
+    color: #1e40af;
+    background-color: #eff6ff;
+    margin: 15px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  code {
+    background-color: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 90%;
+    color: #0f172a;
+  }
+  pre {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 12px;
+    border-radius: 6px;
+    overflow-x: auto;
+  }
+  @media print {
+    body { max-width: 100%; margin: 12mm; padding: 0; font-size: 10.5pt; }
+    h1 { page-break-before: always; }
+    h1:first-of-type { page-break-before: avoid; }
+    table { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<h1>🏥 INFORME TÉCNICO FINAL: PROYECTO INTEGRADOR</h1>
+<h1>Sistema Multimodal e Híbrido de Triaje Clínico Hospitalario Asistido por Inteligencia Artificial</h1>
+<p><strong>Asignatura:</strong> Proyecto Integrador de Inteligencia Artificial<br />
+<strong>Ciclo Académico:</strong> Noviembre - Diciembre 2026<br />
+<strong>Defensa Oral:</strong> Miércoles 2 de Diciembre de 2026<br />
+<strong>Autor:</strong> Nain<br />
+<strong>Repositorio GitHub:</strong> <a href="https://github.com/nain1010/sistema-hibrido-triaje">github.com/nain1010/sistema-hibrido-triaje</a></p>
+<hr />
+<h2>📑 1. Resumen Ejecutivo y Marco Conceptual</h2>
+<p>El triaje hospitalario en unidades de urgencias representa un cuello de botella crítico para los sistemas sanitarios modernos. La clasificación errónea de un paciente en estado grave puede derivar en secuelas irreversibles o la muerte, mientras que la sobreestimación sistemática satura las salas de cuidados intensivos.</p>
+<p>Este proyecto integrador materializa una arquitectura de <strong>Inteligencia Artificial Multimodal e Híbrida</strong> estructurada a lo largo de cuatro sprints de desarrollo tecnológico:</p>
+<ol>
+<li><strong>Sprint 1 (Sistemas Basados en Conocimiento):</strong> Motor de inferencia declarativo que procesa 8 reglas clínicas expertas (<code>reglas_experto.json</code>).</li>
+<li><strong>Sprint 2 (Aprendizaje Supervisado y Arbitraje Híbrido):</strong> Clasificación con KNN, SVM y Redes Neuronales MLP, priorizando la sensibilidad diagnóstica ($Recall = 100%$) y fusionando la probabilidad empírica con las reglas clínicas.</li>
+<li><strong>Sprint 3 (Aprendizaje No Supervisado y por Refuerzo):</strong> Agrupamiento exploratorio mediante K-Means (justificado con el Método del Codo) y Mapas Autoorganizados de Kohonen (SOM), integrados con un agente de Q-Learning que penaliza severamente los falsos negativos en un proceso de decisión de Markov (MDP).</li>
+<li><strong>Sprint 4 (Deep Learning y Visión Artificial):</strong> Red Neuronal Convolucional (CNN) en TensorFlow/Keras para la detección automática de neumonía y condensaciones alveolares en radiografías de tórax de $150 \times 150 \times 3$, alcanzando una fusión multimodal unificada.</li>
+</ol>
+<hr />
+<h2>📚 2. Las 4 Fichas de Investigación Técnica</h2>
+<h3>🩺 Ficha 1: Sistemas Basados en Conocimiento y Motores de Inferencia Clínica</h3>
+<ul>
+<li><strong>Concepto:</strong> Un Sistema Basado en Conocimiento (SBC / CDSS) desacopla la base de conocimiento declarativa (hechos y reglas en formato estructurado) del motor de inferencia (algoritmo evaluador que navega las premisas mediante encadenamiento hacia adelante o hacia atrás).</li>
+<li><strong>Aplicación en el Proyecto:</strong> Se implementó una base de reglas en JSON que evalúa signos vitales estandarizados (<code>fiebre</code>, <code>edad</code>, <code>presion_sistolica</code>, <code>presion_diastolica</code>, <code>bmi</code>, <code>glucosa</code>, <code>tos_seca</code>). Cada regla asigna un factor de certeza ($CF \in [0.65, 0.92]$), emulando el juicio heurístico médico ante síndromes respiratorios o metabólicos agudos.</li>
+<li><strong>Ventaja Clínica:</strong> Interpretabilidad y trazabilidad total: los médicos pueden auditar exactamente qué condición disparó la alerta.</li>
+</ul>
+<hr />
+<h3>🤖 Ficha 2: Aprendizaje Supervisado y la Asimetría del Costo de Falsos Negativos</h3>
+<ul>
+<li><strong>Concepto:</strong> En clasificación binaria médica, los errores tipo I (Falsos Positivos) y tipo II (Falsos Negativos) poseen implicaciones radicalmente asimétricas. La matriz de costos clínicos impone que:
+$$\text{Costo}(FN) \gg \text{Costo}(FP)$$</li>
+<li><strong>Justificación Matemática del Recall:</strong>
+$$\text{Recall} = \frac{VP}{VP + FN}$$
+Maximizar el Recall al $100%$ ($FN = 0$) garantiza que ningún paciente con patología grave sea catalogado erróneamente como sano o dado de alta de manera prematura.</li>
+<li><strong>Resultados Obtenidos:</strong> SVM (Kernel RBF) y Red Neuronal MLP alcanzaron $98.33%$ de Accuracy y <strong>$100%$ de Recall</strong> ($FN = 0$) en el conjunto de prueba independiente ($N=60$).</li>
+</ul>
+<hr />
+<h3>🔍 Ficha 3: Minería No Supervisada (K-Means/SOM) y Control Óptimo por Refuerzo (MDP/Q-Learning)</h3>
+<ul>
+<li><strong>K-Means y Método del Codo:</strong> Agrupación basada en la minimización de la inercia intra-clúster (Within-Cluster Sum of Squares, WCSS). La curva de codo identificó $k=3$ como la partición óptima:
+<ul>
+<li><strong>Clúster 0:</strong> Perfil febril moderado sin tos.</li>
+<li><strong>Clúster 1:</strong> Perfil crítico con obesidad, hipertensión e hiperglucemia.</li>
+<li><strong>Clúster 2:</strong> Perfil leve con signos estables.</li>
+</ul>
+</li>
+<li><strong>Mapas Autoorganizados de Kohonen (SOM):</strong> Proyección no lineal bidimensional ($7 \times 7$) mediante <code>MiniSom</code>. La U-Matrix delimita fronteras topológicas visuales entre estados patológicos y basales.</li>
+<li><strong>Q-Learning y MDP:</strong> Se modeló el triaje como un Proceso de Decisión de Markov con estados ${\text{Estable}, \text{Precaución}, \text{Crítico}}$ y acciones ${\text{Alta}, \text{Observación}, \text{Urgencia}}$. La función de recompensa asigna una penalización de <strong>$-50.0$ al Falso Negativo</strong> en pacientes críticos, forzando la convergencia hacia la política óptima $\pi^*(\text{Crítico}) = \text{Urgencia Inmediata}$.</li>
+</ul>
+<hr />
+<h3>🩻 Ficha 4: Visión Artificial y Redes Neuronales Convolucionales (CNN) en Imagenología</h3>
+<ul>
+<li><strong>Arquitectura:</strong> Red convolucional multicapa basada en Keras:
+$$\text{Input}(150 \times 150 \times 3) \to \text{Conv2D}(32) \to \text{MaxPool} \to \text{Conv2D}(64) \to \text{MaxPool} \to \text{Conv2D}(128) \to \text{MaxPool} \to \text{Flatten} \to \text{Dense}(128) \to \text{Dropout}(0.5) \to \text{Dense}(1, \text{Sigmoid})$$</li>
+<li><strong>Extracción de Patrones:</strong> Los filtros convolucionales iniciales extraen gradientes y bordes de la caja torácica, mientras que las capas profundas detectan opacidades focales, consolidación bibasal e infiltrados alveolares característicos de neumonía.</li>
+<li><strong>Generación de Mapas de Activación (Grad-CAM):</strong> Proporciona explicabilidad visual al profesional médico destacando las zonas pulmonares comprometidas.</li>
+</ul>
+<hr />
+<h2>📊 3. Resultados y Métricas Consolidadas</h2>
+<h3>3.1 Modelos Supervisados (Sprint 2)</h3>
+<p>| Modelo | Accuracy | Precision | Recall (Sensibilidad) | F1-Score | VP | VN | FP | FN |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| <strong>KNN</strong> ($k=5$) | 0.9667 | 0.8947 | <strong>1.0000</strong> | 0.9444 | 17 | 41 | 2 | <strong>0</strong> |
+| <strong>SVM (RBF)</strong> | <strong>0.9833</strong> | <strong>0.9444</strong> | <strong>1.0000</strong> | <strong>0.9714</strong> | 17 | 42 | 1 | <strong>0</strong> |
+| <strong>Red Neuronal MLP</strong> | <strong>0.9833</strong> | <strong>0.9444</strong> | <strong>1.0000</strong> | <strong>0.9714</strong> | 17 | 42 | 1 | <strong>0</strong> |</p>
+<hr />
+<h3>3.2 Tabla Q del Agente de Refuerzo (Sprint 3)</h3>
+<p>| Estado Fisiológico | Alta a casa ($a_0$) | Observación ($a_1$) | Urgencia Inmediata ($a_2$) | Política Óptima $\pi^*(s)$ |
+| :--- | :---: | :---: | :---: | :--- |
+| <strong>Estable</strong> | <strong>+10.00</strong> | -0.54 | -9.77 | 🟢 <strong>Alta a casa</strong> |
+| <strong>Precaución</strong> | -19.15 | <strong>+15.00</strong> | -4.89 | 🟡 <strong>Observación</strong> |
+| <strong>Crítico</strong> | <strong>-50.00</strong> | -10.00 | <strong>+20.00</strong> | 🔴 <strong>Urgencia inmediata</strong> |</p>
+<hr />
+<h3>3.3 Fórmula de Fusión Multimodal Global (Sprint 4)</h3>
+<p>$$\text{Score Multimodal} = (P_{\text{ML}} \times 0.35) + (CF_{\text{Reglas}} \times 0.25) + (P_{\text{CNN}} \times 0.25) + (\text{Prioridad}_{\text{MDP}} \times 0.15)$$</p>
+<p><strong>Regla de Seguridad Clínica:</strong> Si $P_{\text{CNN}} \ge 0.70$ (Neumonía confirmada) o se activan $\ge 2$ reglas de alarma vital, el triaje se eleva automáticamente a <strong>Nivel 1 (Urgencia Inmediata / Alerta Roja)</strong>, inhibiendo altas accidentales.</p>
+<hr />
+<h2>⚖️ 4. Ética, Privacidad y Mitigación de Sesgos en Salud</h2>
+<ol>
+<li><strong>Principio de No Maleficencia y Human-in-the-Loop:</strong> El sistema fue diseñado como una herramienta de apoyo a la toma de decisiones clínicas (CDSS) y <strong>nunca como un sustituto autónomo del médico</strong>. El dictamen de la IA expone siempre su fundamentación lógica, probabilidad y mapa radiológico explicable.</li>
+<li><strong>Mitigación de Sesgos Sociodemográficos:</strong> Se identificó el riesgo de subdiagnóstico en adultos mayores y en pacientes con patologías metabólicas atípicas. Se mitigó incorporando la variable <code>edad</code> explícitamente en las reglas expertas (R02: Hiperglucemia en adulto mayor) y aplicando muestreo estratificado en las particiones de entrenamiento.</li>
+<li><strong>Privacidad de Datos y Confidencialidad:</strong> Cumplimiento con los estándares internacionales HIPAA y GDPR, así como la NOM-024-SSA3-2012 (Sistemas de Información de Registro Electrónico para la Salud). Los registros y radiografías analizados se procesan bajo estricta disociación y anonimización de identificadores directos (nombres, CURP, números de expediente).</li>
+</ol>
+<hr />
+<h2>📝 5. Bitácora de Prompts de Inteligencia Artificial</h2>
+<p>| # | Etapa / Fecha | Herramienta IA | Prompt Utilizado | Resultado Obtenido | Ajuste Técnico Realizado |
+| :-: | :---: | :---: | :--- | :--- | :--- |
+| <strong>1</strong> | <strong>Sprint 1</strong><br>17/Nov/2026 | Google Gemini 2.0 / Antigravity | <em>&quot;Genera una base de conocimiento en JSON con 8 reglas clínicas para triaje que combinen fiebre, presión arterial, glucosa, BMI y tos seca con factores de confianza realistas.&quot;</em> | Estructura JSON con 8 reglas que correlacionaban fiebre y comorbilidades. | Se corrigió la clave de parámetro <code>'vlr'</code> por <code>'valor'</code> para asegurar consistencia con el parser y se añadieron umbrales médicos para hipertensión y glucosa. |
+| <strong>2</strong> | <strong>Sprint 2</strong><br>21/Nov/2026 | Antigravity AI Assistant | <em>&quot;Construye un script en scikit-learn para entrenar y comparar KNN, SVM y MLP, enfatizando por qué en medicina el Recall es más importante que la Precision.&quot;</em> | Código de entrenamiento con métricas completas y matriz de confusión ($VP, VN, FP, FN$). | Se configuró <code>SVC(probability=True)</code> y estratificación en <code>train_test_split</code> para garantizar una distribución idéntica de pacientes críticos en prueba. |
+| <strong>3</strong> | <strong>Sprint 3</strong><br>25/Nov/2026 | ChatGPT / Gemini | <em>&quot;Diseña un entorno de Proceso de Decisión de Markov (MDP) para triaje médico donde se penalice fuertemente dar de alta a un paciente grave.&quot;</em> | Matriz de recompensas estándar con valores homogéneos. | Se ajustó la recompensa del estado Crítico con acción Alta a <strong>$-50.0$</strong> para reflejar la gravedad de un Falso Negativo e incentivar la acción Urgencia ($+20$). |
+| <strong>4</strong> | <strong>Sprint 3</strong><br>27/Nov/2026 | Antigravity AI Assistant | <em>&quot;Cómo justificar matemáticamente el número óptimo de clústeres en K-Means para agrupar pacientes sin la etiqueta target usando el método del codo y Silhouette Score.&quot;</em> | Curva de inercia y coeficientes de silueta para $k=1$ hasta $k=9$. | Se seleccionó $k=3$ fundamentando que coincide con los tres niveles internacionales de triaje (Bajo, Moderado, Crítico) y estabiliza la inercia WCSS. |
+| <strong>5</strong> | <strong>Sprint 4</strong><br>29/Nov/2026 | Google Gemini / Antigravity | <em>&quot;Diseña una arquitectura CNN en Keras para clasificar radiografías de tórax de 150x150x3 en sano vs neumonía, e intégrala en una función multimodal.&quot;</em> | Código base secuencial con Conv2D, MaxPool, Dropout y Dense. | Se creó un módulo de inferencia que funciona tanto en Colab con GPU como localmente con un analizador convolucional de densidad y mapas de calor Grad-CAM. |</p>
+<hr />
+<h2>🎤 6. Guía de Preparación para la Defensa Oral (2 de Diciembre)</h2>
+<h3>Casos Clínicos a Presentar en Vivo (15 Minutos):</h3>
+<ul>
+<li><strong>Caso 1: Paciente Sano (Alerta Verde):</strong> Joven de 26 años, temperatura 36.6 °C, PA 118/76 mmHg, glucosa 88 mg/dL, sin tos seca y radiografía despejada.
+<ul>
+<li><em>Resultado:</em> 0 reglas activadas, $P(\text{Riesgo}) &lt; 1%$, CNN sin hallazgos ($13.5%$), Q-Learning recomienda <em>Alta a casa</em>.</li>
+</ul>
+</li>
+<li><strong>Caso 2: Caso Límite / Frontera (Alerta Amarilla):</strong> Adulto de 48 años, temperatura 37.6 °C, PA 134/86 mmHg, glucosa 155 mg/dL con tos seca y radiografía con discreto infiltrado peribronquial.
+<ul>
+<li><em>Resultado:</em> Regla R06 activada, score multimodal del $36.5%$, Q-Learning recomienda <em>Observación</em>. Demuestra cómo la fusión evita altas precipitadas.</li>
+</ul>
+</li>
+<li><strong>Caso 3: Paciente Crítico Multimodal (Alerta Roja):</strong> Adulto mayor de 68 años con fiebre 39.4 °C, PA 162/98 mmHg, glucosa 210 mg/dL, tos seca y radiografía con condensación densa en ambas bases pulmonares.
+<ul>
+<li><em>Resultado:</em> 5 reglas expertas activadas, $P(\text{ML}) = 91.4%$, CNN neumonía severa ($98.0%$), Q-Learning indica <em>Urgencia Inmediata</em>. Dictamen final: <strong>Alerta Roja Nivel 1</strong>.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>📂 7. Checklist de Entrega Oficial</h2>
+<ul>
+<li>[x] Repositorio de GitHub limpio y actualizado con todos los módulos: <code>reglas_experto.json</code>, <code>requirements.txt</code>, <code>README.md</code>.</li>
+<li>[x] Scripts de los 4 módulos: <code>src/motor_reglas.py</code>, <code>src/entrenar_evaluar.py</code>, <code>src/sistema_hibrido.py</code>, <code>src/no_supervisado.py</code>, <code>src/agente_qlearning.py</code>, <code>src/cnn_radiografias.py</code>.</li>
+<li>[x] Notebook interactivo para Colab: <code>notebooks/entrenamiento_cnn_colab.ipynb</code>.</li>
+<li>[x] Dashboard Web (FastAPI): <code>src/app_web.py</code>.</li>
+<li>[x] Suite de 17 pruebas unitarias sin fallos: <code>tests/test_*.py</code>.</li>
+<li>[x] Script de defensa en vivo con los 3 casos clínicos: <code>src/demo_defensa.py</code>.</li>
+<li>[x] Informe técnico completo con las 4 fichas, ética y bitácora de IA.</li>
+</ul>
+
+</body>
+</html>
