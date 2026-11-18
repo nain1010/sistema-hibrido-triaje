@@ -37,3 +37,5 @@ ENV/
 *.swo
 .DS_Store
 Thumbs.db
+
+sistema_hibrido_triaje.zip
